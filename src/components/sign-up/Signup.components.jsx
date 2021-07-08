@@ -5,6 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 import FormInput from '../form-input/FormInput';
 import validate from '../input-validation/Validation';
 import { auth, createUserProfileDocument } from '../../firebase/firebase.util';
+import ErrorModal from '../error-modal/ErrorModal';
 
 const useStyles = makeStyles(() => ({
   image: {
@@ -25,6 +26,17 @@ const useStyles = makeStyles(() => ({
   },
   link: {
     textDecoration: 'none',
+    color: '#393E46',
+  },
+  button: {
+    backgroundColor: '#393E46',
+    color: 'white',
+    border: '1px solid #393E46',
+    '&:hover': {
+      border: '1px solid #393E46',
+      color: '#393E46',
+      backgroundColor: 'white',
+    },
   },
   errors: {
     color: 'red',
@@ -44,6 +56,8 @@ const SignUp = ({ history }) => {
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [message, setMessage] = useState('');
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -78,11 +92,22 @@ const SignUp = ({ history }) => {
       });
       history.push('/signin');
     } catch (error) {
-      console.error(error);
+      setMessage(error.message);
+      setShowModal(true);
     }
+  };
+
+  const handleClose = () => {
+    setShowModal(false);
   };
   return (
     <Container maxWidth="lg">
+      {/* error modal */}
+      <ErrorModal
+        open={showModal}
+        handleClose={handleClose}
+        message={message}
+      />
       <Box display="flex" height="100vh">
         <Box width="50%" my="auto" p={7}>
           <Typography component={'span'}>
@@ -160,12 +185,12 @@ const SignUp = ({ history }) => {
               <Button
                 type="submit"
                 variant="contained"
-                color="primary"
+                className={classes.button}
                 fullWidth
               >
                 Sign up
               </Button>
-              <Typography className={classes.text}>
+              <Typography className={classes.text} component={'span'}>
                 Already have an account?{' '}
                 <Box ml={1}>
                   <Link to="/signin" className={classes.link}>
@@ -176,6 +201,7 @@ const SignUp = ({ history }) => {
             </Box>
           </form>
         </Box>
+
         <Box my="auto" width="50%">
           <img
             src="../images/signup.png"

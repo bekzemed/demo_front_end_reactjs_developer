@@ -10,6 +10,9 @@ const useStyles = makeStyles(() => ({
   buttonRadius: {
     borderRadius: '15px',
   },
+  buttonColor: {
+    backgroundColor: '#393E46',
+  },
   removeLinkDecoration: {
     textDecoration: 'none',
   },
@@ -42,9 +45,9 @@ const Landing = () => {
             <Link to="/signup" className={classes.removeLinkDecoration}>
               <Button
                 variant="contained"
-                color="primary"
                 fullWidth
                 className={classes.buttonRadius}
+                style={{ backgroundColor: '#393E46', color: 'white' }}
               >
                 Sign up
               </Button>

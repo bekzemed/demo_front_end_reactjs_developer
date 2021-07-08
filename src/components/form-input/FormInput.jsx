@@ -24,6 +24,7 @@ const FormInput = ({
     <TextField
       required
       value={value}
+      autoComplete="on"
       variant="standard"
       label={label}
       type={type}

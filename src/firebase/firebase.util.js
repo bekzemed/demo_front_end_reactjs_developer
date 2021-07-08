@@ -1,16 +1,9 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import { firebaseUtil } from '../config/firebase.config';
 
-const firebaseConfig = {
-  apiKey: 'AIzaSyAe31itiQ9ETNOCuVOcSxJGkmfobnA_zJg',
-  authDomain: 'dexter-50d8c.firebaseapp.com',
-  projectId: 'dexter-50d8c',
-  storageBucket: 'dexter-50d8c.appspot.com',
-  messagingSenderId: '172479042581',
-  appId: '1:172479042581:web:e881b235ee16de8870ea1c',
-  measurementId: 'G-H95KNZQTN2',
-};
+const firebaseConfig = firebaseUtil;
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;

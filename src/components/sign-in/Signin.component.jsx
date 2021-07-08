@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Link } from 'react-router-dom';
 import FormInput from '../form-input/FormInput';
 import { auth, signInWithGoogle } from '../../firebase/firebase.util';
+import { useHistory } from 'react-router';
 import ErrorModal from '../error-modal/ErrorModal';
 
 const useStyles = makeStyles(() => ({
@@ -19,6 +20,7 @@ const useStyles = makeStyles(() => ({
   },
   link: {
     textDecoration: 'none',
+    color: '#393E46',
   },
   text: {
     display: 'flex',
@@ -28,6 +30,18 @@ const useStyles = makeStyles(() => ({
   },
   button: {
     marginRight: '20px',
+    backgroundColor: '#393E46',
+    color: 'white',
+    border: '1px solid #393E46',
+    '&:hover': {
+      backgroundColor: 'white',
+      color: '#393E46',
+      border: '1px solid #393E46',
+    },
+  },
+  googleButton: {
+    border: '1px solid #393E46',
+    color: '#393E46',
   },
 }));
 
@@ -40,6 +54,8 @@ const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [message, setMessage] = useState('');
+
+  const history = useHistory();
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -55,7 +71,9 @@ const SignIn = () => {
     const { email, password } = values;
     try {
       await auth.signInWithEmailAndPassword(email, password);
+
       setValues({ email: '', password: '' });
+      history.push('/dashboard');
     } catch (error) {
       setMessage(error.message);
       setShowModal(true);
@@ -68,6 +86,7 @@ const SignIn = () => {
 
   return (
     <Container maxWidth="lg">
+      {/* error modal */}
       <ErrorModal
         open={showModal}
         handleClose={handleClose}
@@ -81,6 +100,7 @@ const SignIn = () => {
             className={classes.image}
           />
         </Box>
+
         <Box width="50%" my="auto" p={7}>
           <Typography component={'span'}>
             <Box
@@ -139,14 +159,14 @@ const SignIn = () => {
                 <Button
                   onClick={signInWithGoogle}
                   variant="outlined"
-                  color="primary"
+                  className={classes.googleButton}
                   fullWidth
                 >
                   Sign in with Google
                 </Button>
               </Box>
 
-              <Typography className={classes.text}>
+              <Typography className={classes.text} component={'span'}>
                 Do not have an account?{' '}
                 <Box ml={1}>
                   <Link to="/signup" className={classes.link}>

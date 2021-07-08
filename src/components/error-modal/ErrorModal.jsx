@@ -1,8 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
+import { Modal, Backdrop, Fade, Button, Box } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -41,6 +39,11 @@ const ErrorModal = ({ open, handleClose, message }) => {
         <div className={classes.paper}>
           <h2 className={classes.modalTitle}>Error Message</h2>
           <p>{message}</p>
+          <Box display="flex" justifyContent="flex-end">
+            <Button onClick={handleClose} variant="contained" color="secondary">
+              Close
+            </Button>
+          </Box>
         </div>
       </Fade>
     </Modal>
