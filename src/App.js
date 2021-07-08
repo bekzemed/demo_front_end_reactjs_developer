@@ -22,8 +22,6 @@ function App() {
     });
   }, []);
 
-  console.log(currentUser);
-
   return (
     <div>
       <Switch>

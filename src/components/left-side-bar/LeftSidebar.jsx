@@ -76,7 +76,6 @@ const LeftSidebar = () => {
           <SidebarItem icon="far fa-user" text="Profile" />
         </Link>
         <SidebarItem icon="far fa-comment-dots" text="More" isLast />
-        <SidebarItem isButton text="Feedback" />
         <Button
           variant="outlined"
           className={classes.button}
