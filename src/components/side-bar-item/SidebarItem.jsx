@@ -21,6 +21,17 @@ const useStyles = makeStyles(() => ({
   texts: {
     fontWeight: 'bold',
   },
+  button: {
+    width: '240px',
+    borderRadius: '30px',
+    cursor: 'pointer',
+    backgroundColor: 'rgb(57, 62, 70)',
+    color: 'white',
+    justifyContent: 'center',
+    '&:hover': {
+      backgroundColor: 'rgb(57, 62, 70, 0.8)',
+    },
+  },
 }));
 
 const SidebarItem = ({ icon, text, isButton, handleClick, isLast }) => {
@@ -29,13 +40,13 @@ const SidebarItem = ({ icon, text, isButton, handleClick, isLast }) => {
     <Box
       display="flex"
       alignItems="center"
-      className={classes.linkContainer}
+      className={isButton ? classes.button : classes.linkContainer}
       px={2}
       py={1}
       mb={isLast ? 3 : 1}
       onClick={handleClick}
     >
-      <i className={`${icon} fa-lg ${classes.icons}`}></i>
+      {isButton ? null : <i className={`${icon} fa-lg ${classes.icons}`}></i>}
       <Typography variant="h6" className={classes.texts}>
         {text}
       </Typography>
